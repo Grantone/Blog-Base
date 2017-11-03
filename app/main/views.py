@@ -10,7 +10,16 @@ def index():
     view root page
     '''
 
-    return render_tenplate('index.html')
+    return render_template('index.html')
+
+
+@main.route('/blog/<int:blog_id>')
+def blog(blog_id):
+    '''
+    View blog page function
+    '''
+
+    return render_template('blog.html', id=blog_id)
 
 
 @main.route('blog/comment/new<int:id>', methods=['GET', 'POST'])
