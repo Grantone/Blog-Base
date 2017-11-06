@@ -3,8 +3,13 @@ from wtforms import StringField, TextAreaField, SubmitField
 from wtforms.validators import Required
 
 
-class CommentForm(FlaskForm):
+class BlogForm(FlaskForm):
 
-    title = StringField('Comment title', validators=[Required()])
-    comment = TextAreaField('Category comment', validators=[Required()])
+    title = StringField('Blog Title', validators=[Required()])
+    content = TextAreaField('Type Blog', validators=[Required()])
+    submit = SubmitField('Submit')
+
+
+class CommentForm(FlaskForm):
+    comment_section = TextAreaField('Comment', validators=[Required()])
     submit = SubmitField('Submit')

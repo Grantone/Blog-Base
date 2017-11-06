@@ -1,20 +1,11 @@
-{% extends 'base.html'%} {% import 'macros.html' as macro %}
+{% extends 'base.html' %} {% import 'macros.html' as macro %}
 
-<!-- Content Blck -->
-{% block content %} {% endblock %}
-<!DOCTYPE html>
-<html>
+<!-- Styles block -->
 
-<head>
-  <meta charset="utf-8"> {% if title %}
-  <title> {{ title }}</title>
-  {% else %}
-  <title> Let us post our blogs </title>
-  {% endif %}
-</head>
+{% block styles%} {{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}"> {% endblock %}
 
-<body>
-
-</body>
-
-</html>
+<!-- Content block -->
+{% block content %}
+<h4>Blog Base</h4> {{ macro.displayBlogs(blog) }}
+<p class="text-right"><a class="btn btn-primary" href="/blog/new/{{blog.id}}">Add blog</a> {% endblock %}

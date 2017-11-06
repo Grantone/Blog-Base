@@ -1,7 +1,10 @@
-from flask import render_tenplate
+from flask import render_tenplate, redirect, url_for, abort
+from .. import db
+from . import main
 from app import app
-from flask_login import login_required
-# Views
+from flask_login import login_required, current_user
+from .forms import BlogForm, CommentForm
+from ..models import Blog, User, Comments, Role
 
 
 @main.route('/')
@@ -10,28 +13,34 @@ def index():
     view root page
     '''
 
-    return render_template('index.html')
+    blog = Blog.get_blog()
+    title = 'Home - Welcome to Blog Base'
+    return render_template('index.html', title=title, blog=blog)
 
 
 @main.route('/blog/<int:blog_id>')
-def blog(blog_id):
+def blogs(id):
     '''
     View blog page function
     '''
 
-    return render_template('blog.html', id=blog_id)
+    return render_template('blog.html', id=id)
 
 
 @main.route('blog/comment/new<int:id>', methods=['GET', 'POST'])
 @login_required
 def new_comment(id):
+
+    blog = Blog.query.filter_by(id=id).first()
+
+    if blog is None:
+        abort(404)
     form = CommentForm()
-    blog = get_blog(id)
 
     if form.validate_on_submit():
         title = form.title.data
         comment = form.comment.data
-        new_comment = Comment(blog.id, title, comment)
+        new_comment = Comments(blog.id, title, comment)
         new_comment.save_comment()
         return redirect(url_for('blog', id=blog.id))
 
