@@ -7,5 +7,6 @@
 
 <!-- Content block -->
 {% block content %}
-<!-- <h4>Blog Base</h4> {{ macro.displayBlogs(blog) }} -->
-<!-- <p class="text-right"><a class="btn btn-primary" href="/blog/new/{{blog.id}}">Add blog</a> {% endblock %} -->
+<h4>Blog Base</h4>
+<li>{{ macro.displayBlogs(blog) }}</li>
+<p class="text-right"><a class="btn btn-primary" href="/blog/new">Add blog</a> {% endblock %}
