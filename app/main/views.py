@@ -12,7 +12,8 @@ def index():
     view root page
     '''
 
-    blog = Blog.get_blog()
+    print('<><><><><><><><><')
+    blog = BlogForm()
     title = 'Home - Welcome to Blog Base'
     return render_template('index.html', title=title, blog=blog)
 

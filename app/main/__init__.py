@@ -3,7 +3,7 @@ main = Blueprint('main', __name__)
 from . import views, error
 
 
-from flask_login import login_required
+# from flask_login import login_required
 
 
 # def create_app(config_name):
