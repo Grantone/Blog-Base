@@ -40,7 +40,7 @@ License
 MIT (c) 2017 Granton Mchana
 
 
-#### LICENCE
+# LICENCE
 
 
 MIT License
