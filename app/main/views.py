@@ -12,12 +12,9 @@ def index():
     view root page
     '''
 
-    # print('<><><><><><><><><')
     blog = BlogForm()
     title = 'Home - Welcome to Blog Base'
-    return render_template('index.html', title=title)
-
-    # , blog=blog
+    return render_template('index.html', title=title, blog=blog)
 
 
 @main.route('/blog/<int:blog_id>')
