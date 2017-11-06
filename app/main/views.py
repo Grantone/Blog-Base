@@ -18,10 +18,8 @@ def index():
 
 @main.route('/blog/<int:id>')
 def blogs(id):
-    '''
-    View blog page function
-    '''
 
+    blogs = Blog.query.get(id)
     return render_template('blog.html', id=id)
 
 
