@@ -1,10 +1,9 @@
-from flask import render_tenplate, redirect, url_for, abort
+from flask import render_template, redirect, url_for, abort
 from .. import db
 from . import main
-from app import app
 from flask_login import login_required, current_user
 from .forms import BlogForm, CommentForm
-from ..models import Blog, User, Comments, Role
+from ..models import User, Role
 
 
 @main.route('/')
@@ -27,7 +26,7 @@ def blogs(id):
     return render_template('blog.html', id=id)
 
 
-@main.route('blog/comment/new<int:id>', methods=['GET', 'POST'])
+@main.route('/blog/comment/new<int:id>', methods=['GET', 'POST'])
 @login_required
 def new_comment(id):
 
