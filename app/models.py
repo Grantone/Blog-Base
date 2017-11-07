@@ -5,9 +5,9 @@ from . import login_manager
 from datetime import datetime
 
 
-# @login_manager.user_loader
-# def load_user(user_id):
-#     return User.query.get(int(user_id))
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 class User(UserMixin, db.Model):
@@ -41,7 +41,7 @@ class User(UserMixin, db.Model):
 
 
 class Blog(db.Model):
-    __tablename__ = 'blog'
+    __tablename__ = 'blogs'
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
@@ -60,25 +60,19 @@ class Blog(db.Model):
 
     @classmethod
     def get_blog(cls):
-        '''
-        Function that returns all the data from blog after being queried
-        '''
+
         blog = Blog.query.order_by(Blog.id.desc()).all()
         return blog
 
     @classmethod
     def delete_blog(cls):
-        '''
-        Functions the deletes a blog post
-        '''
+
         blog = Blog.query.filter_by(id=blog_id).delete()
         comment = Comments.query.filter_by(blog_id=blog_id).delete()
 
 
 class Comments(db.Model):
-    '''
-    comment class that creates new comments from users
-    '''
+
     __tablename__ = 'comment'
 
     id = db.Column(db. Integer, primary_key=True)
