@@ -1,12 +1,38 @@
-{% extends 'base.html' %} {% import 'macros.html' as macro %}
+{% extends 'base.html' %} {% import 'macros.html' as macro %} {% import 'bootstrap/wtf.html' as wtf %}
 
-<!-- Styles block -->
+<!DOCTYPE html>
+<html>
 
-{% block styles%} {{ super() }}
-<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}"> {% endblock %}
+<head>
+  <meta charset="UTF-8">
+  <title>{{Title}}</title>
+</head>
 
-<!-- Content block -->
-{% block content %}
-<h4>Blog Base</h4>
-<li>{{ macro.displayBlogs(blog) }}</li>
-<p class="text-right"><a class="btn btn-primary" href="/blog/new">Add blog</a> {% endblock %}
+<body>
+  {% block styles%} {{ super() }}
+  <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}"> {% endblock %} {% block content %}
+
+  <div class="container">
+
+    {% if current_user.is_authenticated%} {{current_user.username}} {% else %}
+    <h1>Blog Base</h1> {%endif%}
+
+  </div>
+  <div class="container">
+    {% if current_user.id == 1 %}
+    <a class="btn btn-default" href="admin/blog/new"> Create Blog </a> {% else %} {% endif %}
+  </div>
+  <div class="container">
+    <div class="row">
+      <ul style="...">
+        {{ macro.displayBlogList (blogs) }}
+      </ul>
+
+    </div>
+  </div>
+
+  {% endblock %}
+
+</body>
+
+</html>
