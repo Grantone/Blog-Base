@@ -22,9 +22,6 @@ def register():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    '''
-    Function for Loging in
-    '''
     login_form = LoginForm()
     if login_form.validate_on_submit():
         user = User.query.filter_by(email=login_form.email.data).first()
@@ -34,7 +31,7 @@ def login():
 
         flash('invalid username or password')
 
-    title = "Brownie's Blog"
+    title = "Blog Base"
     return render_template('auth/login.html', login_form=login_form, title=title)
 
 
