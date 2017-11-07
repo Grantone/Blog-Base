@@ -8,9 +8,6 @@ from ..models import User, Role
 
 @main.route('/')
 def index():
-    '''
-    view root page
-    '''
 
     title = 'Home - Welcome to Blog Base'
     return render_template('index.html', title=title)
