@@ -3,26 +3,21 @@ from .. import db
 from . import main
 from flask_login import login_required, current_user
 from .forms import BlogForm, CommentForm
-from ..models import User, Role
+from ..models import User, Role, Blog
 
 
 @main.route('/')
 def index():
-    '''
-    view root page
-    '''
 
     title = 'Home - Welcome to Blog Base'
-    return render_template('index.html', title=title)
+    return render_template('index.html', blogs=blogs)
 
 
 @main.route('/blog/<int:id>')
 def blogs(id):
-    '''
-    View blog page function
-    '''
 
-    return render_template('blog.html', id=id)
+    blogs = Blog.query.get(id)
+    return render_template('blog.html', blog=single_blog)
 
 
 @main.route('/blog/comment/new<int:id>', methods=['GET', 'POST'])
