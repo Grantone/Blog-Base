@@ -22,7 +22,7 @@ Specifications
 User displays a form where a user can comment on a certain blog
 Setup/Installation Requirements
 
-Click on the PunchLine
+Click to Blogs
 
 #### Known Bugs
 
