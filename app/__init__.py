@@ -1,9 +1,12 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from config import config_options
-from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from flask_simplemde import SimpleMDE
 
+
+simple = SimpleMDE()
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
@@ -24,10 +27,7 @@ def create_app(config_name):
     bootstrap.init_app(app)
     db.init_app(app)
     login_manager.init_app(app)
-    # app.config.from_object(config_options[config_name])
-
-    # Initializing flask extensions
-    # bootstrap.init_app(app)
+    simple.init_app(app)
 
     # Registratering the blueprint
     from .main import main as main_blueprint
@@ -35,5 +35,9 @@ def create_app(config_name):
 
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
+
+    # Registering admin blueprint
+    from .admin import admin as admin_blueprint
+    app.register_blueprint(admin_blueprint, url_prefix='/admin')
 
     return app

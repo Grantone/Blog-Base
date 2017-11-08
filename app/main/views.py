@@ -39,3 +39,16 @@ def new_comment(id):
 
     # title = f'{category.name} comment'
     return render_template('new_comment.html', title=title, comment_form=form, blog=blog)
+
+
+@main.route('/blog/<int:id>')
+def single_blog(id):
+
+    single_blog = Blog.query.get(id)
+
+    comment = Comments.get_comment(id)
+
+    if single_blog is None:
+        abort(404)
+
+    return render_template('blog.html', blog=single_blog, comment=comment)

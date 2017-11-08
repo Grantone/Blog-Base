@@ -14,12 +14,12 @@ class User(UserMixin, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(255), index=True)
-    email = db.Column(db.String(255), unique=True, index=True)
+    username = db.Column(db.String, index=True)
+    email = db.Column(db.String, unique=True, index=True)
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
-    password_hash = db.Column(db.String(255))
-    blog = db.relationship("Blog", backref="user", lazy="dynamic")
-    comments = db.relationship('Comment', backref='user', lazy="dynamic")
+    password_hash = db.Column(db.String)
+    blog_id = db.relationship("Blog", backref="user", lazy="dynamic")
+    comment_id = db.relationship('Comments', backref='user', lazy="dynamic")
 
     @property
     def password(self):
@@ -44,16 +44,13 @@ class Blog(db.Model):
     __tablename__ = 'blogs'
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255))
-    content = db.Column(db.String(255))
+    title = db.Column(db.String)
+    content = db.Column(db.String)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     comment_id = db.relationship("Comments", backref="blog", lazy="dynamic")
 
     def save_blog(self):
-        '''
-        Function that saves Blog
-        '''
 
         db.session.add(self)
         db.session.commit()
@@ -77,15 +74,13 @@ class Comments(db.Model):
 
     id = db.Column(db. Integer, primary_key=True)
     comment_section = db.Column(db.String(255))
-    author = db.Column(db.String(255))
+    author = db.Column(db.String)
     date_posted = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
-    blog_id = db.Column(db.Integer, db.ForeignKey("blog.id"))
+    blog_id = db.Column(db.Integer, db.ForeignKey("blogs.id"))
 
     def save_comment(self):
-        '''
-        save the comments per blog
-        '''
+
         db.session.add(self)
         db.session.commit()
 
@@ -96,9 +91,7 @@ class Comments(db.Model):
 
     @classmethod
     def delete_comment(cls, comment_id):
-        '''
-        Function that delete a simgle comment in a blog post
-        '''
+
         comment = Comments.query.filter_by(id=comment_id).delete()
         db.session.commit()
 
